@@ -10,7 +10,9 @@ class ContasController extends Controller
     {
         $transferencias = $conta->transferenciasFeitas
             ->merge($conta->transferenciasRecebidas)
-            ->sort(fn ($a, $b) => $a->created_at->gt($b->created_at) ? -1 : 1);
+            ->sort(function ($a, $b) {
+                return $a->created_at->gt($b->created_at) ? -1 : 1;
+            });
 
         return view('conta.index', ['transferencias' => $transferencias, 'conta' => $conta]);
     }
